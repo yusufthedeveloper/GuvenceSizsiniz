@@ -27,8 +27,8 @@ from flask_ngrok import run_with_ngrok
 s = requests.Session()
 
 app = Flask(__name__)
+run_with_ngrok(app) 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///holdup.db"
-run_with_ngrok(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -184,7 +184,7 @@ def fr(pa_id):
         return send_file("cahce/"+todo.file_name, as_attachment=True)
         
 @app.route("/file/delete/<int:pa_id>")
-def delete(pa_id):
+def deletef(pa_id):
     data = db.session.query(logintokens).all()
     if request.cookies.get('FileToken') == data[0].token:
         todo = passtokens.query.filter_by(id=pa_id).first()
@@ -193,7 +193,7 @@ def delete(pa_id):
         return redirect("/files")
         
 @app.route("/passwords/delete/<int:pa_id>")
-def delete(pa_id):
+def deletep(pa_id):
     data = db.session.query(logintokens).all()
     if request.cookies.get('LoginToken') == data[0].token:
         todo = passtokens.query.filter_by(id=pa_id).first()
@@ -330,4 +330,4 @@ def register():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(host='0.0.0.0', port=80)
+    app.run()
