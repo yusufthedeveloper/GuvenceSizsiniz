@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
+<title>Giriş Yap</title>
+{% endblock %}
+
+{% block body %}
+<main class="form-signin">
+      <h1 class="h3 mb-3 fw-normal">.:Parolanız:.</h1>
+
+      <div class="form-floating">
+        <p>{{ passwkey }}</p>
+      <p class="mt-5 mb-3 text-muted">Güvence Sizsiniz © Yusuf CANSEVER - Tüm Hakları Saklıdır</p>
+      <a class="btn btn-secondary" aria-current="page"  href="/passwords">Geri dön</a>
+  </main>
+{% endblock %}

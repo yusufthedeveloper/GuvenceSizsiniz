@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Güvence Sizsiniz</title>
+{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Güvence Sizsiniz Parola Ve Şifreleme Yöneticisi</a>
+    <div class="d-flex">
+      <a class="btn btn-primary" href="/logout">Cıkış Yap</a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/passwords">Parolalarım</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/files">Dosyalarım</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/settings">Ayarlar</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <p>
+          </p>
+        </div>
+      </div>
+    </div>
+  </nav>
+<div class="container">
+  <form class="form-group" action="/passwords/add" method="post">
+    <div class="field">
+        <label>Parola Ekle</label>
+        <input class="form-control" type="text" name="appname" placeholder="Uygulama Adı"><br>
+        <input readonly class="form-control" name="password" id="password" placeholder="Parola"><br>
+    </div>
+    <a class="btn btn-secondary" onclick="javascript:makeid(14);" >Parola Üret</a>
+    <button class="btn btn-primary" type="submit">Ekle</button>
+</form>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Uygulama Ismi</th>
+        <th scope="col">Şifrelenmiş Parola</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+  {% for pa in passlist %}
+    <tr>
+      <th scope="row">{{ pa.id }}</th>
+      <td>{{ pa.application_name }}</td>
+      <td>{{ pa.passwkey }}</td>
+      <td>
+      <a class="btn btn-danger" href="/passwords/delete/{{ pa.id }}">Sil</a>
+      </td>
+      <td>
+      <a class="btn btn-warning" href="/passwords/take/{{ pa.id }}">Şifreyi Al</a>
+      </td>
+    </tr>
+
+  {% endfor %}
+</div>
+{% endblock %}
+{% block js %}
+<script>
+
+  function makeid(length)
+  {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * 
+charactersLength));
+ }
+ document.getElementById("password").value = result;
+}
+
+</script>
+{% endblock %}
