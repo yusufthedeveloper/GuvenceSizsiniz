@@ -186,7 +186,7 @@ def fr(pa_id):
 @app.route("/file/delete/<int:pa_id>")
 def deletef(pa_id):
     data = db.session.query(logintokens).all()
-    if request.cookies.get('FileToken') == data[0].token:
+    if request.cookies.get('LoginToken') == data[0].token:
         todo = passtokens.query.filter_by(id=pa_id).first()
         db.session.delete(todo)
         db.session.commit()
