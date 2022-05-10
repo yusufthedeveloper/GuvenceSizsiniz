@@ -21,11 +21,13 @@ from zipfile import ZipFile
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import zippyshare_downloader
+from flask_ngrok import run_with_ngrok
 
 
 s = requests.Session()
 
 app = Flask(__name__)
+run_with_ngrok(app) 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///holdup.db"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
