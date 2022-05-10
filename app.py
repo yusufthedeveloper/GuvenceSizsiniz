@@ -320,7 +320,7 @@ def register():
                 messagebx = 'Aşagıdaki butona basıp karşıdan inen dosyayı lütfen saklayınız şifreyi unutmanız halinde içindeki araç size lazım olucaktır'
                 return redirect('/login')
             except:
-                return 'There was an issue'
+                return redirect('/login')
 
     else:
         if (db.session.query(db.exists().where(logintokens.token_name == 'LoginToken')).scalar()):
