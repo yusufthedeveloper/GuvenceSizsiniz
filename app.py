@@ -21,14 +21,12 @@ from zipfile import ZipFile
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import zippyshare_downloader
-from flask_ngrok import run_with_ngrok
 
 
 s = requests.Session()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///holdup.db"
-run_with_ngrok(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -330,4 +328,4 @@ def register():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run()
+    app.run(host='0.0.0.0', port=80)
